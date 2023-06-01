@@ -1,4 +1,5 @@
-<h1 class="title">{{ title }}</h1>
+
+<h1 class="title">{{ isReadmeContent?"Github Repository Readme content":"Get the list of public github repository" }}</h1>
 <!-- form or input taking container-->
 
 <section class="formContainer" *ngIf="!isContentDisplayed">
@@ -17,7 +18,7 @@
   </div>
 
   <button (click)="fetchRepositoryReadmeContent()" class="btn" *ngIf="isReadmeContent">Get Readme Content</button>
-  <button *ngIf="!isReadmeContent" (click)="fetchPublicRepositoriestList()"
+  <button *ngIf="!isReadmeContent" (click)="fetchPublicRepositoriesList()"
     [class]="isReadmeContent ? 'btn publicbtn' : 'btn publicRe'">Get Public Repositories</button>
   <button (click)="ShowReposForm()" class="btn publicbtn" *ngIf="isReadmeContent">Get Public Repositories</button>
   <button (click)="ShowReadMe()" class="btn showReadme" *ngIf="!isReadmeContent">Get Readme Content</button>
@@ -34,20 +35,41 @@
 <section class="content_container">
 
   <h2 *ngIf="isLoading" class="loading">Retrieving data, please wait...</h2>
-
   <h1 *ngIf="errorMessage" class="error">{{ errorMessage }}</h1>
 
-  <div class="readme-content" *ngIf="readmeContent  && !errorMessage && isContentDisplayed && isReadmeContent">
+  <div class="readme-content" *ngIf="readmeContent && !errorMessage && isContentDisplayed && isReadmeContent">
     <button (click)="showBtnClick()" class="btn">Show form</button>
+
+    <div class="show_Owner_details">
+      <p><strong>Github Username</strong>: {{ ShowUsername}}</p>
+      <p><strong>Repository</strong>: <a [href]="'https://github.com/' + ShowUsername + '/' + ShowrepositoryName"
+          target="_blank">{{ 'https://github.com/' + ShowUsername + '/' + ShowrepositoryName }}</a></p>
+
+
+
+    </div>
+
+    <p>&nbsp;</p> <!-- Add spacing using a <p> tag -->
+
     <pre [innerHTML]="parseReadmeContentWithLinks()"></pre>
   </div>
 
+
   <ul *ngIf="!isReadmeContent">
-    <p *ngIf="repositories.length>1">Click any of the link to visit repository</p>
-    <li *ngFor="let repository of repositories" (click)="redirectToRepository(repository)">
+
+    <div class="show_Owner_details" *ngIf="repositories.length > 1">
+      <p>Github Username: <strong>{{ ShowUsername }}</strong></p>
+      <div class="search-bar">
+        <input type="text" placeholder="Search repository" (input)="searchRepositories($event)">
+      </div>
+    </div>
+    
+    <p *ngIf="filteredRepositories.length>1">Click any of the link to visit repository</p>
+    <li *ngFor="let repository of filteredRepositories" (click)="redirectToRepository(repository)">
       <a [href]="repository.html_url" target="_blank">{{ repository.name }}</a>
     </li>
   </ul>
+  
 
 
 

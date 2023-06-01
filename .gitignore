@@ -5,8 +5,8 @@
 /tmp
 /out-tsc
 /bazel-out
-/src/environments/environment.ts
-/src/environments/environment.prod.ts
+/src/environment.ts
+/src/environment.prod.ts
 
 
 # Node

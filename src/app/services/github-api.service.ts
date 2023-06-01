@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from '../../environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,19 +8,21 @@ import { Observable } from 'rxjs';
 })
 export class GithubApiService {
 
-  private baseUrl = environment.baseUrl; 
+  private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
-  
+
   // get repository readme content
   getRepositoryReadmeContent(userEnteredData: any): Observable<any> {
     const url = `${this.baseUrl}/repos/${userEnteredData?.username}/${userEnteredData.repositoryName}/readme`;
+    // console.log("url", url);
+
     return this.http.get<any>(url);
   }
 
   // get repositories list
 
-  getRepositories(gethubUsername:any) {
+  getRepositories(gethubUsername: any) {
     const url = `${this.baseUrl}/users/${gethubUsername}/repos`;
     return this.http.get<any>(url);
   }

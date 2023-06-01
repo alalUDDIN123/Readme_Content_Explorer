@@ -15,9 +15,12 @@ export class AppComponent {
   errorMessage: string = '';
   username: string = '';
   repositoryName: string = '';
+  ShowUsername: string = '';
+  ShowrepositoryName: string = '';
   isContentDisplayed: boolean = false
   isReadmeContent: boolean = true
   repositories: any[] = [];
+  filteredRepositories: any[] = [];
 
 
   resetForm() {
@@ -47,22 +50,29 @@ export class AppComponent {
     this.githubApiService.getRepositoryReadmeContent(userRepositoryData).subscribe(
       readme => {
         const readmeContent = atob(readme.content);
-        this.readmeContent = readmeContent
-        this.isContentDisplayed = true
-        this.isLoading = false;
-        this.resetForm();
+        // console.log("readme content",readmeContent);
+        if (readmeContent) {
+          this.readmeContent = readmeContent
+          this.isContentDisplayed = true
+          this.isLoading = false;
+          this.ShowUsername = userRepositoryData.username;
+          this.ShowrepositoryName = userRepositoryData.repositoryName;
+          this.resetForm();
+        } else {
+          this.errorMessage = "Content could not found";
+          this.isLoading = false;
+          this.resetForm();
+          setTimeout(() => {
+            this.errorMessage = "";
+          }, 2500);
+        }
+
       },
       error => {
         this.isLoading = false;
         this.handleError(error);
       }
     );
-  }
-
-  // show get readme content form fn
-  ShowReadMe() {
-    this.isReadmeContent = true
-    this.repositories = []
   }
 
 
@@ -96,6 +106,14 @@ export class AppComponent {
     return formattedContent;
   }
 
+
+  // show get readme content form fn
+  ShowReadMe() {
+    this.isReadmeContent = true
+    this.repositories = []
+  }
+
+
   showBtnClick() {
     this.isContentDisplayed = false
   }
@@ -105,34 +123,46 @@ export class AppComponent {
   }
   // get list or the repositoris which are public
 
-  fetchPublicRepositoriestList() {
+  fetchPublicRepositoriesList() {
     if (!this.username) {
-      alert("Please enter github username .");
+      alert("Please enter github username.");
       return;
     }
     this.isLoading = true;
+    this.ShowUsername = this.username;
+
     this.githubApiService.getRepositories(this.username).subscribe(
       repositories => {
-        // console.log("repositories list ",repositories);
         if (repositories.length === 0) {
-          this.errorMessage = "No repository found"
-
+          this.errorMessage = "No repository found";
           setTimeout(() => {
             this.errorMessage = "";
-          }, 1500);
+          }, 2500);
         }
         this.repositories = repositories;
+        this.filteredRepositories = repositories;
         this.isLoading = false;
-
       },
       error => {
         this.isLoading = false;
-        console.log('Error fetching repositories:', error);
-        this.handleError(error)
+        // console.log('Error fetching repositories:', error);
+        this.handleError(error);
       }
     );
   }
 
+
+  searchRepositories(event: any) {
+    let searchTerm = event.target?.value
+    if (!searchTerm) {
+      this.filteredRepositories = this.repositories;
+    } else {
+      this.filteredRepositories = this.repositories.filter(repository =>
+        repository.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+    }
+  }
 
 
   handleError(error: any) {
@@ -149,13 +179,13 @@ export class AppComponent {
 
     setTimeout(() => {
       this.errorMessage = "";
-    }, 1500);
+    }, 2500);
 
   }
 
   redirectToRepository(repository: any) {
     window.open(repository.html_url, '_blank');
   }
-  
+
 
 }
