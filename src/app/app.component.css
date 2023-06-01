@@ -1,0 +1,122 @@
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.formContainer {
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.formContainer label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.formContainer input[type="text"] {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.publicbtn {
+    margin-left: 20px;
+    background-color: chocolate !important;
+}
+
+.publicRe {
+    background-color: chocolate !important;
+}
+
+.showReadme {
+    margin-left: 20px;
+}
+
+.formContainer .btn:disabled {
+    background-color: #999999;
+    cursor: not-allowed;
+}
+
+.content_container {
+    width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.loading {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.readme-content {
+    margin-top: 20px;
+    overflow: auto;
+}
+
+.readme-content pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+.readme-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content_container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.content_container li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.content_container li:hover {
+    background-color: white;
+    border-bottom: 1px solid red;
+    font-weight: 600;
+}
+
+
+.content_container a {
+    color: blue;
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: 15px;
+}
