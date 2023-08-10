@@ -8,7 +8,6 @@ The application was built using the following tech stack:
 
 - **Angular**: Angular was used for the frontend development, providing a powerful framework for building robust and scalable web applications.
 - **CSS**: CSS was used for styling and designing the user interfaces, ensuring visually appealing and responsive layouts.
-- **JSON-Server**: JSON-Server was utilized for backend simulation, enabling the application to interact with a mock API and handle data management effectively.
 
 ## **`Duration`**
 The project was developed in approximately 8 hours.
